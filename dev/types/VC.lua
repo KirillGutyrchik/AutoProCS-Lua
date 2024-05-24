@@ -13,9 +13,9 @@ VC.subtypes = {
             AO = {},
         },
         tags = {
-            [ Tag.ST ] = 1,
-            [ Tag.M ] = 1,
-            [ Tag.V ] = 1,
+            Tag.ST,
+            Tag.M,
+            Tag.V,
         },
     },
 
@@ -27,13 +27,13 @@ VC.subtypes = {
             AI = {},
         },
         tags = {
-            [ Tag.ST ] = 1,
-            [ Tag.M ] = 1,
-            [ Tag.V ] = 1,
-            [ Tag.BLINK ] = 1,
-            [ Tag.NAMUR_ST ] = 1,
-            [ Tag.OPENED ] = 1,
-            [ Tag.CLOSED ] = 1,
+            Tag.ST,
+            Tag.M,
+            Tag.V,
+            Tag.BLINK,
+            Tag.NAMUR_ST,
+            Tag.OPENED,
+            Tag.CLOSED,
         },
     },
 
@@ -41,9 +41,9 @@ VC.subtypes = {
         name = 'VC_VIRT',
         description = 'Виртуальный аналоговый клапан (без привязки к модулям)',
         tags = {
-            [ Tag.ST ] = 1,
-            [ Tag.M ] = 1,
-            [ Tag.V ] = 1,
+            Tag.ST,
+            Tag.M,
+            Tag.V,
         },
     },
 }

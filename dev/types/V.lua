@@ -5,16 +5,16 @@ local V = {
 }
 
 local TAG_ST_M = {
-    [ Tag.ST ] = 1,
-    [ Tag.M ] = 1,
+    Tag.ST,
+    Tag.M,
 }
 
 local TAG_FB = {
-    [ Tag.ST ] = 1,
-    [ Tag.M ] = 1,
-    [ Parameter.P_ON_TIME ] = 1,
-    [ Parameter.P_FB ] = 1,
-    [ Tag.FB_OFF_ST ] = 1,
+    Tag.ST,
+    Tag.M,
+    Parameter.P_ON_TIME,
+    Parameter.P_FB,
+    Tag.FB_OFF_ST,
 }
 
 V.subtypes = {

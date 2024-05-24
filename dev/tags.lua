@@ -1,117 +1,180 @@
---- Описание тегов <br/>
---- name - название тега (копируется из ключа таблицы) <br/>
---- description - описание тега (не используется)
-local tags = {
-    ST = {
-        description = "Состояние"
-    },
-    M = {
-        description = "Ручной режим"
-    },
-    V = {
-        description = 'Аналоговое значение'
-    },
-    P_CZ = {
-        description = 'Сдвиг нуля'
-    },
-    BLINK = {
-        description = 'Световая индикация устройства'
-    },
-    NAMUR_ST = {
-        description = 'Состояние по стандарту NAMUR'
-    },
-    OPENED = {
-        description = 'Открыт'
-    },
-    CLOSED = {
-        description = 'Закрыт'
-    },
-    FB_OFF_ST = {
-        description = 'Текущее состояние обратной связи (на отключенное состояние)'
-    },
-    FB_ON_ST = {
-        description = 'Текущее состояние обратной связи (на включенное состояние)'
-    },
-    CS = {
-        description = 'Сигнал управления'
-    },
-    ERR = {
-        description = 'Ошибка'
-    },
-    T = {
-        description = 'Температура'
-    },
-    OK = {
-        description = 'Проверка устройства'
-    },
-    R = {
-        description = 'Реверс (обычно мотор)'
-    },
-    FRQ = {
-        description = 'Частота (обычно мотор)'
-    },
-    RPM = {
-        description = 'Обороты в минуту (обычно мотор)'
-    },
-    EST = {
-        description = 'Расширенное состояние (обычно мотор)'
-    },
-    CLEVEL = {
-        description = 'Пересчитанный уровень (обычно в уровне)'
-    },
-    L_BLUE = {
-        description = 'Состояние голубой лампочки'
-    },
-    L_RED = {
-        description = 'Состояние красной лампочки'
-    },
-    L_YELLOW = {
-        description = 'Состояние желтой лампочки'
-    },
-    L_GREEN = {
-        description = 'Состояние зеленой лампочки'
-    },
-    L_SIREN = {
-        description = 'Состояние сирены'
-    },
-    ABS_V = {
-        description = 'Абсолютное значение'
-    },
-    P_MIN_FLOW = {
-        description = 'Минимальное значение потока'
-    },
-    P_MAX_FLOW = {
-        description = 'Максимальное значение потока'
-    },
-    F = {
-        description = 'Расход'
-    },
-    ST_CH = {
-        description = 'Состояние канала'
-    },
-    NOMINAL_CURRENT_CH = {
-        description = 'Заданный ток канала'
-    },
-    LOAD_CURRENT_CH = {
-        description = 'Текущий ток канала'
-    },
-    ERR_CH = {
-        description = 'Авария канала'
-    },
-    Z = {
-        description = 'Задание'
-    },
-    RESULT = {
-        description = 'Результат обработки'
-    },
-    READY = {
-        description = 'Готовность'
-    },
-}
+--------------------------------------------------------------------------------
+--- Метатаблица тега
+local metaTag = {}
+metaTag.__index = metaTag
 
-for tag_name, tag in pairs(tags) do
-    -- дублируем название тега в таблицу тега 
-    tag.name = tag_name
+--- Добавить счетчик для тега
+--- ---
+--- Используется для указания индексируемого тега:
+--- { name = TAG } => { name = TAG, count = n } <- .TAG[ 1 ] .. .TAG[ n ]
+--- @param count integer количество индексов для тегов (начиная с 1)
+--- @return table tag новая таблица с указаным количеством индексов
+function metaTag:count(count)
+    return setmetatable( { count = count }, { __index = self } )
 end
 
-return tags
+--------------------------------------------------------------------------------
+--- Метатаблица списка тегов
+local metaTagTable = {}
+
+--- Добавить новый тег в список
+--- @param self table список тегов
+--- @param key string ключ-название тега 
+--- @param value table описание тега { description } 
+metaTagTable.__newindex = function (self, key, value)
+    value.name = key
+    rawset(self, key, setmetatable( value, metaTag ))
+end
+
+
+--------------------------------------------------------------------------------
+--- Таблица списка тегов
+--- ---
+--- <-- metaPropertiesTable
+--- 
+---  - name - название тега (можно не указывать: автоматически подставляется значение ключа)
+---  - description - описание тега
+local tag = setmetatable({}, metaTagTable)
+
+tag.ST = {
+    description = "Состояние"
+}
+
+tag.M = {
+    description = "Ручной режим"
+}
+
+tag.V = {
+    description = 'Аналоговое значение'
+}
+
+tag.P_CZ = {
+    description = 'Сдвиг нуля'
+}
+
+tag.BLINK = {
+    description = 'Индикация местонахождения устройства (по умолчанию мигает фиолетовым цветом)'
+}
+
+tag.NAMUR_ST = {
+    description = 'Состояние по стандарту NAMUR'
+}
+
+tag.OPENED = {
+    description = 'Открыт'
+}
+
+tag.CLOSED = {
+    description = 'Закрыт'
+}
+
+tag.FB_OFF_ST = {
+    description = 'Текущее состояние обратной связи (на отключенное состояние)'
+}
+
+tag.FB_ON_ST = {
+    description = 'Текущее состояние обратной связи (на включенное состояние)'
+}
+
+tag.CS = {
+    description = 'Сигнал управления'
+}
+
+tag.ERR = {
+    description = 'Ошибка'
+}
+
+tag.T = {
+    description = 'Температура'
+}
+
+tag.OK = {
+    description = 'Проверка устройства'
+}
+
+tag.R = {
+    description = 'Реверс (обычно мотор)'
+}
+
+tag.FRQ = {
+    description = 'Частота (обычно мотор)'
+}
+
+tag.RPM = {
+    description = 'Обороты в минуту (обычно мотор)'
+}
+
+tag.EST = {
+    description = 'Расширенное состояние (обычно мотор)'
+}
+
+tag.CLEVEL = {
+    description = 'Пересчитанный уровень (обычно в уровне)'
+}
+
+tag.L_BLUE = {
+    description = 'Состояние голубой лампочки'
+}
+
+tag.L_RED = {
+    description = 'Состояние красной лампочки'
+}
+
+tag.L_YELLOW = {
+    description = 'Состояние желтой лампочки'
+}
+
+tag.L_GREEN = {
+    description = 'Состояние зеленой лампочки'
+}
+
+tag.L_SIREN = {
+    description = 'Состояние сирены'
+}
+
+tag.ABS_V = {
+    description = 'Абсолютное значение'
+}
+
+tag.P_MIN_FLOW = {
+    description = 'Минимальное значение потока'
+}
+
+tag.P_MAX_FLOW = {
+    description = 'Максимальное значение потока'
+}
+
+tag.F = {
+    description = 'Расход'
+}
+
+tag.ST_CH = {
+    description = 'Состояние канала'
+}
+
+tag.NOMINAL_CURRENT_CH = {
+    description = 'Заданный ток канала'
+}
+
+tag.LOAD_CURRENT_CH = {
+    description = 'Текущий ток канала'
+}
+
+tag.ERR_CH = {
+    description = 'Авария канала'
+}
+
+tag.Z = {
+    description = 'Задание'
+}
+
+tag.RESULT = {
+    description = 'Результат обработки'
+}
+
+tag.READY = {
+    description = 'Готовность'
+}
+
+
+return tag

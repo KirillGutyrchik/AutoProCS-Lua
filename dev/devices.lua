@@ -8,8 +8,8 @@ Tag = require 'tags'
 --- key - номер типа <br/>
 --- value - таблица с описанием типа (описываются в отдельном файле и подключаются как модуль)
 local devices = {
-    [ 1 ] = require 'V',
-    [ 2 ] = require 'VC',
+    [ 0 ] = require 'V',
+    [ 1 ] = require 'VC',
 }
 
 return devices
