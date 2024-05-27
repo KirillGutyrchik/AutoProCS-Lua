@@ -19,31 +19,52 @@ function Init(devicesSpecificationBuilder)
 
             -- Инициализация спецификации параметров           
             for _, parameter in ipairs(subtype.parameters or {}) do
-                subtypeBuilder:AddParameter(devicesSpecificationBuilder:FindOrAddParameter(parameter.name, parameter.description or '', parameter.unit or Unit.Empty))
+                subtypeBuilder:AddParameter(
+                    devicesSpecificationBuilder:FindOrAddParameter(
+                        parameter.name,
+                        parameter.description or '',
+                        parameter.unit or Unit.Empty,
+                        parameter.defaultValue or nil))
             end
 
             -- Инициализация параметров времени выполнения
             for _, rt_parameter in ipairs(subtype.rt_paramters or {}) do
-                subtypeBuilder:AddRtParamter(devicesSpecificationBuilder:FindOrAddRtParameter(rt_parameter.name, rt_parameter.describing or ''))
+                subtypeBuilder:AddRtParamter(
+                    devicesSpecificationBuilder:FindOrAddRtParameter(
+                        rt_parameter.name,
+                        rt_parameter.describing or ''))
             end
 
             -- Инициализация спецификации свойств
             for _, property in ipairs(subtype.properties or {}) do
-                subtypeBuilder:AddProperty(devicesSpecificationBuilder:FindOrAddProperty(property.name, property.description or ''))
+                subtypeBuilder:AddProperty(
+                    devicesSpecificationBuilder:FindOrAddProperty(
+                        property.name,
+                        property.description or ''))
             end
 
             -- Инициализация спецификации тегов
-            for tag, count in pairs(subtype.tags or {}) do
-                subtypeBuilder:AddTag(tag.name, count)
+            for _, tag in pairs(subtype.tags or {}) do
+                subtypeBuilder:AddTag(
+                    devicesSpecificationBuilder:FindOrAddTag(
+                        tag.name,
+                        tag.description or '',
+                        tag.count or 1))
             end
 
-            -- Инициализация спецификации каналов ввода/вывода
+            -- Инициализация спецификации каналов ввода-вывода
             for channel_type, channels in pairs(subtype.channels or {}) do
                 if not next(channels) then
-                    subtypeBuilder:AddChannel(channel_type, '');
+                    subtypeBuilder:AddChannel(
+                        devicesSpecificationBuilder:FindOrAddChannel(
+                            channel_type,
+                            ''));
                 else
                     for _, comment in ipairs(channels) do
-                        subtypeBuilder:AddChannel(channel_type, comment);
+                        subtypeBuilder:AddChannel(
+                            devicesSpecificationBuilder:FindOrAddChannel(
+                                channel_type,
+                                comment ));
                     end
                 end
             end
