@@ -6,7 +6,7 @@ metaTag.__index = metaTag
 --- Добавить счетчик для тега
 --- ---
 --- Используется для указания индексируемого тега:
---- { name = TAG } => { name = TAG, count = n } <- .TAG[ 1 ] .. .TAG[ n ]
+--- { name = 'TAG' } => { name = 'TAG', count = n } <- .TAG[ 1 ] .. .TAG[ n ]
 --- @param count integer количество индексов для тегов (начиная с 1)
 --- @return table tag новая таблица с указаным количеством индексов
 function metaTag:count(count)
@@ -53,7 +53,7 @@ tag.P_CZ = {
 }
 
 tag.BLINK = {
-    description = 'Индикация местонахождения устройства (по умолчанию мигает фиолетовым цветом)'
+    description = 'Индикация местонахождения устройства'
 }
 
 tag.NAMUR_ST = {

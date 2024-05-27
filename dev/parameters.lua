@@ -6,14 +6,14 @@ metaParameter.__index = metaParameter
 --- Установка номера для параметра
 --- ---
 --- Используется при необходимости указания нескольких параметров в одноме устройстве:<br/>
---- { name = P }:number(2) => { name = P2 }
+--- { name = 'P' }:number(2) => { name = 'P2' }
 --- @param number integer номер параметра
 --- @return table parameter новая таблица с измененным именем
 function metaParameter:number(number)
     return setmetatable( { name = self.name }, { __index = self } )
 end
 
---- Формирование новой наследуемой таблицы со значением по-умолчанию
+--- Добавление в таблицу значения по-умолчанию (новая таблица, доступ к описанию по _index)
 --- { name, description } => { name, descption, defaultValue }
 --- @param value number значение по-умолчанию
 --- @return table parameter новая таблица со значением по-умолчанию
