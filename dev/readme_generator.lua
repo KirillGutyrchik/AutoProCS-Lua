@@ -4,12 +4,6 @@ package.path =  './?.lua;' ..
 
 local devices = require 'devices'
 
-local readme = io.open('readme.md', 'w')
-
-if (readme == nil) then
-    return
-end
-
 --- Сортировка таблицы
 --- @param tbl table исхоная таблица
 --- @param  sorting? function функция сортировки, по-умолчанию по полю .name
@@ -23,6 +17,23 @@ local function toSortedTable(tbl, sorting)
     table.sort(sorted_table, sorting)
     return sorted_table
 end
+
+
+--- Генерация дерева всех устройства и их подтипов со ссылками на таблицу описания
+--- @return string result md список типов и подтипов устройств
+local function generateDevicesTree()
+    local res = ''
+
+    for _, type in pairs(devices) do
+        res = res .. ('- **%s** - %s <sup>[[LUA](./types/%s.lua)]</sup>\n'):format(type.name, type.description or '', type.name)
+        for _, subtype in pairs(type.subtypes or {}) do
+            res = res .. ('  - [%s](#%s) - %s\n'):format(subtype.name, subtype.name, subtype.description or '')
+        end
+    end
+
+    return res
+end
+
 
 --- Генерация html таблицы спецификаций (все параметры, свойства, ...)
 --- @param specs table таблица спецификаций
@@ -51,20 +62,6 @@ local function generateSpecsTable(specs, ...)
     return res
 end
 
---- Генерация дерева всех устройства и их подтипов со ссылками на таблицу описания
---- @return string result md список типов и подтипов устройств
-local function generateDevicesTree()
-    local res = ''
-
-    for _, type in pairs(devices) do
-        res = res .. ('- **%s** - %s <sup>[[lua]](./types/%s.lua)</sup>\n'):format(type.name, type.description or '', type.name)
-        for _, subtype in pairs(type.subtypes or {}) do
-            res = res .. ('  - [%s](#%s) - %s\n'):format(subtype.name, subtype.name, subtype.description or '')
-        end
-    end
-
-    return res
-end
 
 --- Генерация таблиц с описанием всех подтипов
 --- @return string result html-таблица
@@ -147,9 +144,15 @@ local function generateDevicesTables()
     return res
 end
 
+
 --------------------------------------------------------------------------------
 --- Шаблон 'readme.md' файла для описания устройств
 --------------------------------------------------------------------------------
+local readme = io.open('readme.md', 'w')
+if (readme == nil) then
+    return
+end
+
 readme:write(
     '# Устройства\n' ..
     '\n' ..
@@ -161,10 +164,10 @@ readme:write(
     generateDevicesTree() ..
     '\n' ..
     'Списки всех используемых параметров и свойств:\n' ..
-    '- [Параметры](#параметры) <sup>[[lua]](./parameters.lua)</sup>\n' ..
-    '- [Рабочие параметры](#рабочие-параметры) <sup>[[lua]](./runtime_parameters.lua)</sup>\n' ..
-    '- [Свойства](#свойства) <sup>[[lua]](./properties.lua)</sup>\n' ..
-    '- [Теги](#теги) <sup>[[lua]](./tags.lua)</sup>\n' ..
+    '- [Параметры](#параметры) <sup>[[LUA](./parameters.lua)]</sup>\n' ..
+    '- [Рабочие параметры](#рабочие-параметры) <sup>[[LUA](./runtime_parameters.lua)]</sup>\n' ..
+    '- [Свойства](#свойства) <sup>[[LUA](./properties.lua)]</sup>\n' ..
+    '- [Теги](#теги) <sup>[[LUA](./tags.lua)]</sup>\n' ..
     '\n' ..
     '## Описание устройств\n' ..
     '\n' ..

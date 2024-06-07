@@ -5,23 +5,23 @@
 
 Список всех типов и подтипов устройств:
 
-- **V** - Клапан <sup>[[lua]](./types/V.lua)</sup>
+- **V** - Клапан <sup>[[LUA](./types/V.lua)]</sup>
   - [V_DO1](#V_DO1) - Клапан с одним каналом управления
   - [V_DO2](#V_DO2) - Клапан с двумя каналами управления
   - [V_DO1_DI1_FB_OFF](#V_DO1_DI1_FB_OFF) - 
-- **VC** - Управляемый Клапан <sup>[[lua]](./types/VC.lua)</sup>
+- **VC** - Управляемый Клапан <sup>[[LUA](./types/VC.lua)]</sup>
   - [VC](#VC) - Аналоговый клапан
   - [VC_IOLINK](#VC_IOLINK) - IO-Link аналоговый клапан
   - [VC_VIRT](#VC_VIRT) - Виртуальный аналоговый клапан (без привязки к модулям)
-- **C** - Регулятор <sup>[[lua]](./types/C.lua)</sup>
+- **C** - Регулятор <sup>[[LUA](./types/C.lua)]</sup>
   - [C_THLD](#C_THLD) - Пороговый регулятор
   - [C_PID](#C_PID) - Пид-регулятор
 
 Списки всех используемых параметров и свойств:
-- [Параметры](#параметры) <sup>[[lua]](./parameters.lua)</sup>
-- [Рабочие параметры](#рабочие-параметры) <sup>[[lua]](./runtime_parameters.lua)</sup>
-- [Свойства](#свойства) <sup>[[lua]](./properties.lua)</sup>
-- [Теги](#теги) <sup>[[lua]](./tags.lua)</sup>
+- [Параметры](#параметры) <sup>[[LUA](./parameters.lua)]</sup>
+- [Рабочие параметры](#рабочие-параметры) <sup>[[LUA](./runtime_parameters.lua)]</sup>
+- [Свойства](#свойства) <sup>[[LUA](./properties.lua)]</sup>
+- [Теги](#теги) <sup>[[LUA](./tags.lua)]</sup>
 
 ## Описание устройств
 
