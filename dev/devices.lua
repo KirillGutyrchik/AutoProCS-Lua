@@ -10,6 +10,7 @@ Tag = require 'tags'
 local devices = {
     [ 0 ] = require 'V',
     [ 1 ] = require 'VC',
+    [ 20 ] = require 'C',
 }
 
 return devices

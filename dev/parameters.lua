@@ -10,7 +10,7 @@ metaParameter.__index = metaParameter
 --- @param number integer номер параметра
 --- @return table parameter новая таблица с измененным именем
 function metaParameter:number(number)
-    return setmetatable( { name = self.name }, { __index = self } )
+    return setmetatable( { name = self.name..number }, { __index = self } )
 end
 
 --- Добавление в таблицу значения по-умолчанию (новая таблица, доступ к описанию по _index)
@@ -192,11 +192,16 @@ parameter.P_TRANSFER_RATIO = {
 }
 
 parameter.P_READY_TIME = {
-    description = "Предельное время отсутсвя готовности к работе",
+    description = "Предельное время отсутствия готовности к работе",
     unit = Unit.Seconds,
 }
+
 parameter.P_ERR_MIN_FLOW = {
     description = "Ошибка счета импульсов"
+}
+
+parameter.P_delta = {
+    description = "Дельта срабатывания",
 }
 
 return parameter

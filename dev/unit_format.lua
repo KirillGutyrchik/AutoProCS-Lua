@@ -3,7 +3,7 @@
 local unit = {
     Empty = "{0}";
     Boolean = "{0:Да;-;Нет}";
-    Seconds = "{0} c";
+    Seconds = "{0} с";
     Milliseconds = "{0} мс";
     Meters = "{0} м";
     Kilograms = "{0} кг";
