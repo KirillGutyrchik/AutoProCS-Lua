@@ -57,7 +57,7 @@ local function generateDevicesTree()
     local res = ''
 
     for _, type in pairs(devices) do
-        res = res .. ('- **%s** - %s\n'):format(type.name, type.description or '')
+        res = res .. ('- **%s** - %s <sup>[[lua]](./types/%s.lua)</sup>\n'):format(type.name, type.description or '', type.name)
         for _, subtype in pairs(type.subtypes or {}) do
             res = res .. ('  - [%s](#%s) - %s\n'):format(subtype.name, subtype.name, subtype.description or '')
         end
@@ -73,7 +73,6 @@ local function generateDevicesTables()
 
     for _, type in pairs(devices) do
         res = res .. ('- %s\n'):format(type.name)
-        -- res = res .. ('* %s - %s\n'):format(type.name, type.description or '')
         for _, subtype in pairs(type.subtypes or {}) do
             res = res .. ('  * <table id=%s>\n'):format(subtype.name) ..
                 ('      <tr> <th> <code>%s</code> - %s </th> </tr>\n')
@@ -154,13 +153,18 @@ end
 readme:write(
     '# Устройства\n' ..
     '\n' ..
+    'Все подтипы устройств описываются в каталоге [dev/types/](./types/).\n' ..
+    'Пример [описания устройства](./types/readme.md).\n' ..
+    '\n' ..
+    'Список всех типов и подтипов устройств:\n' ..
+    '\n' ..
     generateDevicesTree() ..
     '\n' ..
     'Списки всех используемых параметров и свойств:\n' ..
-    '- [Параметры](#параметры)\n' ..
-    '- [Рабочие параметры](#рабочие-параметры)\n' ..
-    '- [Свойства](#свойства)\n' ..
-    '- [Теги](#теги)\n' ..
+    '- [Параметры](#параметры) <sup>[[lua]](./parameters.lua)</sup>\n' ..
+    '- [Рабочие параметры](#рабочие-параметры) <sup>[[lua]](./runtime_parameters.lua)</sup>\n' ..
+    '- [Свойства](#свойства) <sup>[[lua]](./properties.lua)</sup>\n' ..
+    '- [Теги](#теги) <sup>[[lua]](./tags.lua)</sup>\n' ..
     '\n' ..
     '## Описание устройств\n' ..
     '\n' ..
