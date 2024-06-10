@@ -1,6 +1,66 @@
 # Описание устройств
 
-Название файла: `DEV.lua`
+
+```mermaid
+---
+title: схема lua-таблиц описания устройств
+---
+erDiagram
+
+Device {
+    string name
+    string description
+    table[table] subtypes
+}
+
+subtype {
+    string name
+    string description
+    table channels
+    table parameters
+    table properties
+    table rtParameters
+    table tags
+}
+
+channel {
+    string comments
+}
+
+parameter {
+    string name
+    string description
+    string unit
+    double defaultValue
+}
+
+property {
+    string name
+    string description
+}
+
+rtParameter {
+    string name
+    string description
+}
+tag {
+    string name
+    string description
+}
+
+Device ||--o{ subtype : ".subtypes[index]"
+
+subtype ||--o{ channel : ".channels[type]"
+subtype ||--o{ parameter : ".parameters[index]"
+subtype ||--o{ property : ".properties[index]"
+subtype ||--o{ rtParameter : ".rtParameters[index]"
+subtype ||--o{ tag : ".tags[index]"
+```
+
+
+Пример название файла: **`DEV.lua`** - название совпадает с типом устройства.
+Файл создается в текущем каталоге [***./dev/types/***](./)
+
 ```Lua
 local DEV = {
     name = 'DEV', -- Название типа устройства
