@@ -24,7 +24,7 @@ subtype {
 }
 
 channel {
-    string comments
+    string[] comments
 }
 
 parameter {
